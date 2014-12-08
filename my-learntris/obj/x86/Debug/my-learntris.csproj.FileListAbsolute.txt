@@ -1,0 +1,4 @@
+C:\Users\Greg\Documents\Visual Studio 2010\Projects\my-learntris\my-learntris\bin\Debug\my-learntris.exe
+C:\Users\Greg\Documents\Visual Studio 2010\Projects\my-learntris\my-learntris\bin\Debug\my-learntris.pdb
+C:\Users\Greg\Documents\Visual Studio 2010\Projects\my-learntris\my-learntris\obj\x86\Debug\my-learntris.exe
+C:\Users\Greg\Documents\Visual Studio 2010\Projects\my-learntris\my-learntris\obj\x86\Debug\my-learntris.pdb
