@@ -29,28 +29,27 @@ namespace my_learntris
         {
             do
             {
-                //Console.WriteLine("Select an action");
-                int input = Console.Read();
-                char key = ' ';
-                //if(input.Length > 0)
-                    key = Convert.ToChar(input);
-                
-                if (key == 'p')
+                string[] input = Console.ReadLine().Split(new char[] {' '});
+
+                foreach (string key in input)
                 {
-                    PrintMatrix();
-                }
-                else if (key == 'g')
-                {
-                    PopulateMatrix();
-                }
-                else if (key == 'c')
-                {
-                    ClearMatrix();
-                }
-                else if (key == 'q')
-                {
-                    quit = true;
-                    return;
+                    if (key == "p")
+                    {
+                        PrintMatrix();
+                    }
+                    else if (key == "g")
+                    {
+                        PopulateMatrix();
+                    }
+                    else if (key == "c")
+                    {
+                        ClearMatrix();
+                    }
+                    else if (key == "q")
+                    {
+                        quit = true;
+                        return;
+                    }
                 }
             } while (!quit);
         }
@@ -60,7 +59,7 @@ namespace my_learntris
             ClearMatrix();
         }
 
-        public void ClearMatrix()
+        void ClearMatrix()
         {
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
@@ -71,7 +70,7 @@ namespace my_learntris
             }
         }
 
-        public void PrintMatrix()
+        void PrintMatrix()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -92,14 +91,18 @@ namespace my_learntris
             Console.Write(sb.ToString());
         }
 
-        public void PopulateMatrix()
+        void PopulateMatrix()
         {
+
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                string input = Console.ReadLine();
+                string input = Console.ReadLine().TrimEnd(new char[] {'\n','\r'}) ;
                 string[] chars = input.Split(' ');
-                if (chars.Length == 0)
+                if (chars.Length == 1)
+                {
+                    i--;
                     continue;
+                }
 
                 for (int j = 0; j < chars.Length; j++)
                 {
