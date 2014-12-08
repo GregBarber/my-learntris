@@ -18,6 +18,8 @@ namespace my_learntris
     {
         string[,] matrix;
         bool quit = false;
+        double score;
+        int clearedLines;
 
         public LearntrisGame() 
         {
@@ -33,22 +35,29 @@ namespace my_learntris
 
                 foreach (string key in input)
                 {
-                    if (key == "p")
+                    switch (key)
                     {
-                        PrintMatrix();
-                    }
-                    else if (key == "g")
-                    {
-                        PopulateMatrix();
-                    }
-                    else if (key == "c")
-                    {
-                        ClearMatrix();
-                    }
-                    else if (key == "q")
-                    {
-                        quit = true;
-                        return;
+                        case "p":
+                            PrintMatrix();
+                            break;
+                        case "g":
+                            PopulateMatrix();
+                            break;
+                        case "c":
+                            ClearMatrix();
+                            break;
+                        case "?s":
+                            DisplayScore();
+                            break;
+                        case "?n":
+                            DisplayClearedLines();
+                            break;
+                        case "s":
+                            StepGame();
+                            break;
+                        case "q":
+                            quit = true;
+                            return;
                     }
                 }
             } while (!quit);
@@ -57,16 +66,23 @@ namespace my_learntris
         void SetupGame()
         {
             ClearMatrix();
+            score = 0;
+            clearedLines = 0;
         }
 
         void ClearMatrix()
         {
             for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                for (int j = 0; j < matrix.GetLength(1); j++)
-                {
-                    matrix[i, j] = ".";
-                }
+                ClearRow(i);
+            }
+        }
+
+        private void ClearRow(int i)
+        {
+            for (int j = 0; j < matrix.GetLength(1); j++)
+            {
+                matrix[i, j] = ".";
             }
         }
 
@@ -109,6 +125,45 @@ namespace my_learntris
                     matrix[i, j] = chars[j];
                 }
             }
+        }
+
+        void DisplayScore()
+        {
+            Console.WriteLine(score.ToString());
+        }
+
+        void DisplayClearedLines()
+        {
+            Console.WriteLine(clearedLines.ToString());
+        }
+
+        void StepGame()
+        {
+            int newClearedLines = CheckLinesToClear();
+            score += newClearedLines * 100;
+            clearedLines += newClearedLines;
+        }
+
+        int CheckLinesToClear()
+        {
+            int lines = 0;
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    if (matrix[i, j] == ".")
+                        break;
+
+                    if (j == matrix.GetLength(1) - 1)
+                    {
+                        ClearRow(i);
+                        lines++;
+                    }
+                }
+            }
+
+            return lines;
         }
     }
 }
