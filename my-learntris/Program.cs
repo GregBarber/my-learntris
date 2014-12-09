@@ -81,9 +81,15 @@ namespace my_learntris
                         case "T":
                             this.activeTetramino = new T();
                             break;
-                            
+
+                        case ")":
+                            this.activeTetramino.ClockwiseRotation();
+                            break;
                         case "t": 
                             this.activeTetramino.Draw();
+                            break;
+                        case ";":
+                            Console.WriteLine();
                             break;
                     }
                 }
@@ -219,6 +225,27 @@ namespace my_learntris
             }
 
             Console.Write(sb.ToString());
+        }
+
+        public void ClockwiseRotation()
+        {
+            string[,] temp = new string[this.shape.GetLength(0), this.shape.GetLength(1)];
+            //int readRow = 0, readColumn = 0;
+            int writeColumn = this.shape.GetLength(1) - 1, writeRow = 0;
+
+            for (int readRow = 0; readRow < shape.GetLength(0); readRow++)
+            {
+                int columnCount = shape.GetLength(1);
+                for (int readColumn = 0; readColumn < columnCount; readColumn++)
+                {
+                    temp[writeRow, writeColumn] = shape[readRow, readColumn];
+                    writeRow++;
+                }
+                writeRow = 0;
+                writeColumn -= 1;
+            }
+
+            this.shape = temp;
         }
     }
 
